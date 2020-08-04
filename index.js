@@ -11,21 +11,4 @@ mongoose.set('useFindAndModify', false)
 app.get('/', (req, res) => res.send('test'))
 app.get('/level1/:name', controller.level1)
 app.get('/level2/:id/:name', controller.level2)
-app.get('/home', (req, res) => {
-    level1.aggregate([{
-        $lookup:{
-            from:'level1',
-            localField:'kids',
-            foreignField:'_id',
-            as:'level2'
-        }
-    }],(err,data)=>{
-        if(err)
-        {
-            res.json('errMgs: '+err)
-        }else
-        {
-            res.json(data)
-        }
-    })
-})
+app.get('/home', controller.home)

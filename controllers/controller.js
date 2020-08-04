@@ -45,5 +45,23 @@ module.exports = {
                 res.json('errMgs: '+err)
             }
         })
+    },
+    home:(req, res) => {
+        Level1.aggregate([{
+            $lookup:{
+                from:'level1',
+                localField:'kids',
+                foreignField:'_id',
+                as:'level2'
+            }
+        }],(err,data)=>{
+            if(err)
+            {
+                res.json('errMgs: '+err)
+            }else
+            {
+                res.json(data)
+            }
+        })
     }
 }
