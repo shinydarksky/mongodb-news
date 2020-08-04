@@ -61,3 +61,13 @@ app.get('/home', (req, res) => {
         }
     })
 })
+
+app.get('/test',(req,res)=>{
+   Level1.deleteOne({name:'lelouch'},(err,data)=>{
+       if(err){
+           res.json('errMgs: '+err)
+       }else{
+           res.json(data)
+       }
+   })
+})
