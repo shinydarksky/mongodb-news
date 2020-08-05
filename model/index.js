@@ -13,6 +13,7 @@ mongoose.connect(pathData, { useNewUrlParser: true, useUnifiedTopology: true }, 
         console.log('Mongodb connect fail')
     }
 });
+app.set('view engine','ejs')
 mongoose.set('useFindAndModify', false)
 app.get('/',(req,res)=>res.send('test'))
 const Level1 = require('./level1')
@@ -61,13 +62,6 @@ app.get('/home', (req, res) => {
         }
     })
 })
-
 app.get('/test',(req,res)=>{
-   Level1.deleteOne({name:'lelouch'},(err,data)=>{
-       if(err){
-           res.json('errMgs: '+err)
-       }else{
-           res.json(data)
-       }
-   })
+    res.render('./test')
 })
