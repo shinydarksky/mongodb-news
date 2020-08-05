@@ -25,3 +25,7 @@ app.get('/', (req, res) => res.send('test'))
 app.get('/menu/add', (req, res) => {
     res.render('mainAdmin',{page:'add'})
 })
+app.post('/menu/add', (req, res) => {
+    console.log(req.body)
+    res.redirect('/menu/add')
+})
