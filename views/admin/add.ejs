@@ -1,14 +1,35 @@
 <div class="col-6 col-sm-6 col-md-6 col-xl-6 col-xs-6">
     <div class="card ">
-        <div class="card-header bg-success">
-            <div class="card-title pt-1">Add</div>
+        <div class="card-header bg-primary">
+            <div class="card-title pt-1 h   3">Thêm</div>
         </div>
         <div class="card-body">
             <form action="/menu/add" method="POST">
                 <div class="form-group">
                     <div class="input-group">
                         <label for="txtName " class="mt-1 mr-2">Nhập tên</label>
-                        <input type="text" class="form-control" name="txtName" id="txtName"/>
+                        <input type="text" class="form-control" name="txtName" id="txtName" />
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <div class="input-group col-6">
+                        <label for="txtOrdering" class="mt-1 mr-2">Số lượng</label>
+                        <select class="form-control" id="txtOrdering" name="txtOrdering">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="txtActive" class="mt-1 mr-1">Trạng thái</label>
+                        <select name="active" id="txtActive" class="form-control">
+                            <option value=true>Kích hoạt</option>
+                            <option value=false>ẩn</option>
+                        </select>
                     </div>
                 </div>
             </form>
