@@ -20,12 +20,24 @@ mongoose.connect(pathData, { useNewUrlParser: true, useUnifiedTopology: true }, 
 mongoose.set('useFindAndModify', false)
 //models
 const Category = require('./models/category')
+const category = require('./models/category')
 //
 app.get('/', (req, res) => res.send('test'))
 app.get('/menu/add', (req, res) => {
     res.render('mainAdmin',{page:'add'})
 })
 app.post('/menu/add', (req, res) => {
-    console.log(req.body)
+    var category = new Category({
+        name:req.body.txtName,
+        ordering:req.body.txtOrdering,
+        active:req.body.txtActive
+    })
+    category.save((err)=>{
+        if(err){
+            res.json('errMgs: '+err)
+        }{
+            console.log('success')
+        }
+    })
     res.redirect('/menu/add')
 })
