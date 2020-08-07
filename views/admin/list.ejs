@@ -1,4 +1,4 @@
-<div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xs-10 mt-3">
+<div class="col-6 col-sm-6 col-md-6 col-lg-10 col-xs-10 mt-3">
   <div class="card">
     <div class="card-header">
       <div class="title">
@@ -6,23 +6,23 @@
       </div>
     </div>
     <div class="card-body">
-    <table class="table">
+    <table class="table" padding="1px" margin="1px">
       <tr>
-        <th >ID</th>
-        <th >Tên</th>
-        <th >Số lượng</th>
-        <th>Trạng thái</th>
-        <th>Tùy chọn</th>
+        <th scope="col">ID</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Số lượng</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Tùy chọn</th>
       </tr>
       <%data.forEach((datums)=>{%>
 
-        <tr>
-          <td ><%-datums._id%></td>
+        <tr >
+          <td scope="row"><%-datums._id%></td>
           <td ><%-datums.name%></td>
           <td ><%-datums.ordering%></td>
           <td class="text-center"><%-datums.active?'Kích hoạt':'Ẩn'%></td>
           <td>
-            <a href="#" class="m-2 btn btn-success">Sửa</a>
+            <a href="./edit" class="btn btn-success mr-1">Sửa</a>
             <a href="#" class="btn btn-danger">Xóa</a>
           </td>
         </tr>
