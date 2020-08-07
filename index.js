@@ -43,5 +43,14 @@ app.post('/menu/add', (req, res) => {
 })
 
 app.get('/menu/list', (req, res) => {
-    res.render('mainAdmin',{page:'list'})
+    Category.find((err,data)=>{
+      if(err)
+        {
+          res.json('errMgs: '+err)
+        }
+      else
+        {
+          res.render('mainAdmin',{page:'list',data:data.sort()})
+        }
+    })
 })
