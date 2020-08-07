@@ -41,3 +41,7 @@ app.post('/menu/add', (req, res) => {
     })
     res.redirect('/menu/add')
 })
+
+app.get('/menu/list', (req, res) => {
+    res.render('mainAdmin',{page:'list'})
+})
