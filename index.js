@@ -24,18 +24,18 @@ const category = require('./models/category')
 //
 app.get('/', (req, res) => res.send('test'))
 app.get('/menu/add', (req, res) => {
-    res.render('mainAdmin',{page:'add'})
+    res.render('mainAdmin', { page: 'add' })
 })
 app.post('/menu/add', (req, res) => {
     var category = new Category({
-        name:req.body.txtName,
-        ordering:req.body.txtOrdering,
-        active:req.body.txtActive
+        name: req.body.txtName,
+        ordering: req.body.txtOrdering,
+        active: req.body.txtActive
     })
-    category.save((err)=>{
-        if(err){
-            res.json('errMgs: '+err)
-        }{
+    category.save((err) => {
+        if (err) {
+            res.json('errMgs: ' + err)
+        } {
             console.log('success')
         }
     })
@@ -43,22 +43,33 @@ app.post('/menu/add', (req, res) => {
 })
 
 app.get('/menu/list', (req, res) => {
-    Category.find((err,data)=>{
-      if(err)
-        {
-          res.json('errMgs: '+err)
+    Category.find((err, data) => {
+        if (err) {
+            res.json('errMgs: ' + err)
         }
-      else
-        {
-          res.render('mainAdmin',{page:'list',data:data.sort()})
+        else {
+            res.render('mainAdmin', { page: 'list', data: data.sort() })
         }
     })
 })
-app.get('/menu/list/edit/:id',(req,res)=>{
-  console.log(req.params.id)
-  res.redirect('/menu/list')
+app.get('/menu/list/edit/:id', (req, res) => {
+    Category.findById(req.params.id, (err, data) => {
+        if(err)
+        {
+            res.json('errMgs: '+err)
+        }
+        else
+        {
+            console.log(data)
+            res.render('mainAdmin', { page: 'edit', data: data})
+        }
+    })
 })
-app.get('/menu/list/delete/:id',(req,res)=>{
-  console.log(req.params.id)
-  res.redirect('/menu/list')
+app.post('/menu/list/edit', (req, res) => {
+    // Category.findByIdAndUpdate()
+    res.json('post edit')
+})
+app.get('/menu/list/delete/:id', (req, res) => {
+    console.log(req.params.id)
+    res.redirect('/menu/list')
 })
