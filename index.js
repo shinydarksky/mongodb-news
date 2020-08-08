@@ -54,3 +54,11 @@ app.get('/menu/list', (req, res) => {
         }
     })
 })
+app.get('/menu/list/edit/:id',(req,res)=>{
+  console.log(req.params.id)
+  res.redirect('/menu/list')
+})
+app.get('/menu/list/delete/:id',(req,res)=>{
+  console.log(req.params.id)
+  res.redirect('/menu/list')
+})
