@@ -39,7 +39,7 @@ app.post('/menu/add', (req, res) => {
             console.log('success')
         }
     })
-    res.redirect('/menu/add')
+    res.redirect('/menu/list')
 })
 
 app.get('/menu/list', (req, res) => {
