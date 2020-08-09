@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3000 
-const pathData = 'mongodb://localhost:27017/mongodb-news'
+// const pathData = 'mongodb://localhost:27017/mongodb-news'
+const pathData = 'mongodb+srv://thanhloc:9nq3mBEx3iSu6tAk@cluster0.cbei7.gcp.mongodb.net/mongodb-news?retryWrites=true&w=majority'
+// pass 9nq3mBEx3iSu6tAk
 app.use(express.static('public'))
 app.set('views', './views')
 app.set('view engine', 'ejs')
