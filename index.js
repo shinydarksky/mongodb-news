@@ -35,6 +35,7 @@ app.post('/menu/add', (req, res) => {
     category.save((err) => {
         if (err) {
             res.json('errMgs: ' + err)
+            res.redirect('/menu/add')
         } {
             console.log('success')
         }
@@ -46,6 +47,7 @@ app.get('/menu/list', (req, res) => {
     Category.find((err, data) => {
         if (err) {
             res.json('errMgs: ' + err)
+            res.redirect('/menu/add')
         }
         else {
             res.render('mainAdmin', { page: 'list', data: data.sort() })
@@ -56,6 +58,7 @@ app.get('/menu/list/edit/:id', (req, res) => {
     Category.findById(req.params.id, (err, data) => {
         if (err) {
             res.json('errMgs: ' + err)
+            res.redirect('/menu/add')
         }
         else {
             res.render('mainAdmin', { page: 'edit', data: data })
