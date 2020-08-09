@@ -54,22 +54,35 @@ app.get('/menu/list', (req, res) => {
 })
 app.get('/menu/list/edit/:id', (req, res) => {
     Category.findById(req.params.id, (err, data) => {
-        if(err)
-        {
-            res.json('errMgs: '+err)
+        if (err) {
+            res.json('errMgs: ' + err)
         }
-        else
-        {
-            console.log(data)
-            res.render('mainAdmin', { page: 'edit', data: data})
+        else {
+            res.render('mainAdmin', { page: 'edit', data: data })
         }
     })
 })
 app.post('/menu/list/edit', (req, res) => {
-    // Category.findByIdAndUpdate()
-    res.json('post edit')
+    Category.findByIdAndUpdate(req.body.id, {
+        name: req.body.txtName,
+        ordering: req.body.txtOrdering
+    }, (err, data) => {
+        if(err)
+            {
+                console.log('errMgs: '+err)
+                res.redirect('/menu/list/edit') 
+            }
+        else
+            {
+                res.redirect('/menu/list') 
+            }
+    })
 })
 app.get('/menu/list/delete/:id', (req, res) => {
     console.log(req.params.id)
+    Category.findByIdAndDelete(req.params.id, (err, data) => {
+        if (err)
+            console.log('errMgs: ' + err)
+    })
     res.redirect('/menu/list')
 })
