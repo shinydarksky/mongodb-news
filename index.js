@@ -70,7 +70,8 @@ app.get('/menu/list/edit/:id', (req, res) => {
 app.post('/menu/list/edit', (req, res) => {
     Category.findByIdAndUpdate(req.body.id, {
         name: req.body.txtName,
-        ordering: req.body.txtOrdering
+        ordering: req.body.txtOrdering,
+        active:txtActive
     }, (err, data) => {
         if(err)
             {
