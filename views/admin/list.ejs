@@ -3,7 +3,7 @@
     <a class="btn btn-info " href="./add">Thêm</a>
   </div>
 </div>
-<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xs-8 mt-3">
+<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xs-8 mt-3">
   <div class="card row">
     <div class="card-header bg-info">
       <div class="title">
@@ -11,19 +11,19 @@
       </div>
     </div>
     <div class="card-body">
-    <table class="table">
-      <tr scope="row" class="bg-warning">
-        <th scope="col">ID</th>
-        <th scope="col">Tên</th>
-        <th scope="col">Số lượng</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col">Tùy chọn</th>
-      </tr>
-      <%data.forEach((datums)=>{%>
-        <tr >
+      <table class="table">
+        <tr scope="row" class="bg-warning">
+          <th scope="col">ID</th>
+          <th scope="col">Tên</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Tùy chọn</th>
+        </tr>
+        <%data.forEach((datums)=>{%>
+        <tr>
           <td scope="row"><%-datums._id%></td>
-          <td ><%-datums.name%></td>
-          <td ><%-datums.ordering%></td>
+          <td><%-datums.name%></td>
+          <td><%-datums.ordering%></td>
           <td class="text-center "><%-datums.active?'Kích hoạt':'Ẩn'%></td>
           <td>
             <a href="./list/edit/<%-datums._id%>" class="btn btn-success mr-1" ref="<%-datums._id%>">Sửa</a>
@@ -31,9 +31,8 @@
           </td>
           <td></td>
         </tr>
-      <%})%>
-    </table>
+        <%})%>
+      </table>
     </div>
   </div>
 </div>
-
