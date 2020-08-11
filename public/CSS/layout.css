@@ -2,3 +2,6 @@
   margin: 0px;
   padding: 0px
 }
+.border-list{
+  border: aqua !important;
+}
