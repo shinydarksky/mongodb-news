@@ -24,7 +24,7 @@ mongoose.set('useFindAndModify', false)
 const Category = require('./models/category')
 const category = require('./models/category')
 //
-app.get('/', (req, res) => res.send('test'))
+app.get('/', (req, res) => res.redirect('/menu/list'))
 app.get('/menu/add', (req, res) => {
     res.render('mainAdmin', { page: 'add' })
 })
