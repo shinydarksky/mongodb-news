@@ -22,6 +22,7 @@ mongoose.connect(pathData, { useNewUrlParser: true, useUnifiedTopology: true }, 
 mongoose.set('useFindAndModify', false)
 //models
 const Category = require('./models/category')
+const New = require('./models/new')
 //
 app.get('/', (req, res) => res.redirect('/menu/list'))
 app.get('/menu/add', (req, res) => {
@@ -41,7 +42,7 @@ app.post('/menu/add', (req, res) => {
             res.redirect('/menu/list')
         }
     })
-    
+
 })
 
 app.get('/menu/list', (req, res) => {
@@ -89,28 +90,40 @@ app.get('/menu/list/delete/:id', (req, res) => {
     })
     res.redirect('/menu/list')
 })
-app.get('/new/add',(req,res)=>{
-    Category.find((err,data)=>{
+app.get('/new/add', (req, res) => {
+    Category.find((err, data) => {
         if (err) {
             res.json('errMgs: ' + err)
             res.redirect('/new/add')
-        }else{
+        } else {
             // res.json(data)
-            res.render('mainAdmin',{page:'newAdd',data:data})
+            res.render('mainAdmin', { page: 'newAdd', data: data })
         }
     })
 })
-app.post('/new/add',(req,res)=>{
+app.post('/new/add', (req, res) => {
     var multer = require('multer');
     var upload = require('./controllers/uploadFile')
-    upload(req,res,(err)=>{
-        if(err instanceof multer.MulterError)
-        {
+    upload(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
             res.json('Upload file error')
-        }else if(err){
-            res.json('errMgs: '+err)
-        }else{
-            res.json(req.body)
+        } else if (err) {
+            res.json('errMgs: ' + err)
+        } else {
+            var news = new New({
+                title: req.body.txtTitle,
+                description: req.body.txtDescription,
+                image: req.file.filename,
+                content: req.body.txtContent,
+                ordering: req.body.txtOrdering,
+                active: req.body.txtActive
+             })
+            news.save((err)=>{
+                if(err){
+                    Category.findOneAndUpdate({},{},(err))
+                }
+                res.redirect('/new/add')
+            })
         }
     })
 })
