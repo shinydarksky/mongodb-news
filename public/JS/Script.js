@@ -15,7 +15,6 @@ $('docment').ready(()=>{
         $('.root').addClass('container-fluid')
     }
     else{
-        console.log(bodyWidth + '' + typeof bodyWidth)
         $('.root').addClass('container')
         $('.root').removeClass('container-fluid')
     }

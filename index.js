@@ -2,14 +2,14 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000 
-// const pathData = 'mongodb://localhost:27017/mongodb-news'
-const pathData = 'mongodb+srv://thanhloc:9nq3mBEx3iSu6tAk@cluster0.cbei7.gcp.mongodb.net/mongodb-news?retryWrites=true&w=majority'
+const port = 3000
+const pathData = 'mongodb://localhost:27017/mongodb-news'
+// const pathData = 'mongodb+srv://thanhloc:9nq3mBEx3iSu6tAk@cluster0.cbei7.gcp.mongodb.net/mongodb-news?retryWrites=true&w=majority'
 // pass 9nq3mBEx3iSu6tAk
 app.use(express.static('public'))
 app.set('views', './views')
 app.set('view engine', 'ejs')
-app.listen(process.env.PORT ||port)
+app.listen(process.env.PORT || port)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 mongoose.connect(pathData, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
@@ -22,7 +22,6 @@ mongoose.connect(pathData, { useNewUrlParser: true, useUnifiedTopology: true }, 
 mongoose.set('useFindAndModify', false)
 //models
 const Category = require('./models/category')
-const category = require('./models/category')
 //
 app.get('/', (req, res) => res.redirect('/menu/list'))
 app.get('/menu/add', (req, res) => {
@@ -39,10 +38,10 @@ app.post('/menu/add', (req, res) => {
             res.json('errMgs: ' + err)
             res.redirect('/menu/add')
         } {
-            console.log('success')
+            res.redirect('/menu/list')
         }
     })
-    res.redirect('/menu/list')
+    
 })
 
 app.get('/menu/list', (req, res) => {
@@ -71,17 +70,15 @@ app.post('/menu/list/edit', (req, res) => {
     Category.findByIdAndUpdate(req.body.id, {
         name: req.body.txtName,
         ordering: req.body.txtOrdering,
-        active:req.body.txtActive    
+        active: req.body.txtActive
     }, (err, data) => {
-        if(err)
-            {
-                console.log('errMgs: '+err)
-                res.redirect('/menu/list/edit') 
-            }
-        else
-            {
-                res.redirect('/menu/list') 
-            }
+        if (err) {
+            console.log('errMgs: ' + err)
+            res.redirect('/menu/list/edit')
+        }
+        else {
+            res.redirect('/menu/list')
+        }
     })
 })
 app.get('/menu/list/delete/:id', (req, res) => {
@@ -91,4 +88,29 @@ app.get('/menu/list/delete/:id', (req, res) => {
             console.log('errMgs: ' + err)
     })
     res.redirect('/menu/list')
+})
+app.get('/new/add',(req,res)=>{
+    Category.find((err,data)=>{
+        if (err) {
+            res.json('errMgs: ' + err)
+            res.redirect('/new/add')
+        }else{
+            // res.json(data)
+            res.render('mainAdmin',{page:'newAdd',data:data})
+        }
+    })
+})
+app.post('/new/add',(req,res)=>{
+    var multer = require('multer');
+    var upload = require('./controllers/uploadFile')
+    upload(req,res,(err)=>{
+        if(err instanceof multer.MulterError)
+        {
+            res.json('Upload file error')
+        }else if(err){
+            res.json('errMgs: '+err)
+        }else{
+            res.json(req.body)
+        }
+    })
 })
