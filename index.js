@@ -110,20 +110,25 @@ app.post('/new/add', (req, res) => {
         } else if (err) {
             res.json('errMgs: ' + err)
         } else {
+            var filename = 'Empty'
+            if (req.file) {
+                filename = req.file.filename
+            }
             var news = new New({
                 title: req.body.txtTitle,
                 description: req.body.txtDescription,
-                image: req.file.filename,
+                image: filename,
                 content: req.body.txtContent,
                 ordering: req.body.txtOrdering,
                 active: req.body.txtActive
-             })
-            news.save((err)=>{
-                if(err){
-                    Category.findOneAndUpdate({},{},(err))
-                }
-                res.redirect('/new/add')
             })
+            // news.save((err)=>{
+            //     if(err){
+            //         Category.findOneAndUpdate({_id:res.body.},{},(err))
+            //     }
+            //     res.redirect('/new/add')
+            // })
+            res.json(news)
         }
     })
 })
