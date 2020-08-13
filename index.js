@@ -23,6 +23,7 @@ mongoose.set('useFindAndModify', false)
 //models
 const Category = require('./models/category')
 const New = require('./models/new')
+const { response } = require('express')
 //
 app.get('/', (req, res) => res.redirect('/menu/list'))
 app.get('/menu/add', (req, res) => {
@@ -122,13 +123,33 @@ app.post('/new/add', (req, res) => {
                 ordering: req.body.txtOrdering,
                 active: req.body.txtActive
             })
-            // news.save((err)=>{
-            //     if(err){
-            //         Category.findOneAndUpdate({_id:res.body.},{},(err))
-            //     }
-            //     res.redirect('/new/add')
-            // })
-            res.json(news)
+            news.save((err) => {
+                if (err) {
+                    res.json('errmgs: ' + err)
+                } else {
+                    Category.findOneAndUpdate({ _id: req.body.txtCategory }, { $push: { kids: news._id } }, (err) => {
+                        res.json(req.body.txtCategory)
+                    })
+                }
+
+            })
+        }
+    })
+})
+
+app.get('/show', (req, res) => {
+    Category.aggregate([{
+        $lookup: {
+            from: 'news',
+            localField: 'kids',
+            foreignField: '_id',
+            as: 'Category'
+        }
+    }], (err, data) => {
+        if (err) {
+            res.json('errMgs: ' + err)
+        } else {
+            res.json(data)
         }
     })
 })
