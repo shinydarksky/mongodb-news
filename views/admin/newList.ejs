@@ -1,0 +1,43 @@
+<div class="col-12 col-sm-12 col-md-12 col-xl-8 col-xs-8 mt-1">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Kids</th>
+            <th>Ordering</th>
+            <th>Active</th>
+        </tr>
+        <%data.forEach((datums)=>{%>
+        <tr>
+            <td><%-datums.name%></td>
+            <td>
+                <div class="dropdown">
+                    <div class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Dropdown
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <%datums.Category.forEach((datum)=>{%>
+                        <div class="dropdown-item">
+                            <div class="dropdown">
+                                <div class="btn btn-secondary dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </div>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <div class="dropdown-item">Action</div>
+                                    <div class="dropdown-item">Another action</div>
+                                    <div class="dropdown-item">Something else here</div>
+                                </div>
+                            </div>
+                        </div>
+                        <%})%>
+                    </div>
+                </div>
+            </td>
+            <td><%-datums.ordering%></td>
+            <td><%-datums.active%></td>
+        </tr>
+        <%})%>
+
+    </table>
+</div>

@@ -137,7 +137,7 @@ app.post('/new/add', (req, res) => {
     })
 })
 
-app.get('/show', (req, res) => {
+app.get('/new/list', (req, res) => {
     Category.aggregate([{
         $lookup: {
             from: 'news',
@@ -149,7 +149,8 @@ app.get('/show', (req, res) => {
         if (err) {
             res.json('errMgs: ' + err)
         } else {
-            res.json(data)
+            // res.json(data)
+            res.render('mainAdmin',{page:'newList',data:data})
         }
     })
 })
