@@ -150,7 +150,16 @@ app.get('/new/list', (req, res) => {
             res.json('errMgs: ' + err)
         } else {
             // res.json(data)
-            res.render('mainAdmin',{page:'newList',data:data})
+            res.render('mainAdmin', { page: 'newList', data: data })
         }
+    })
+})
+
+
+
+
+app.get('/test', (req, res) => {
+    Category.findOneAndUpdate("5f3e7037cd53ca4740c35f58",{ $pull:{kids:"5f3e7055cd53ca4740c35f5b"}} ,(err) => {
+        res.json('success')
     })
 })
